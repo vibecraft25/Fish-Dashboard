@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Species {
+  id                      String    @id @default(uuid())
+  gbifID                  BigInt    @unique
+  datasetKey              String?
+  occurrenceID            String?
+  kingdom                 String?
+  phylum                  String?
+  class                   String?
+  order                   String?
+  family                  String?
+  genus                   String?
+  species                 String?
+  infraspecificEpithet    String?
+  taxonRank               String?
+  scientificName          String
+  verbatimScientificName  String?
+  countryCode             String?
+  locality                String?   @db.Text
+  stateProvince           String?
+  occurrenceStatus        String?
+  individualCount         Int?
+  decimalLatitude         Float?
+  decimalLongitude        Float?
+  coordinateUncertaintyInMeters Float?
+  coordinatePrecision     Float?
+  elevation               Float?
+  elevationAccuracy       Float?
+  depth                   Float?
+  depthAccuracy           Float?
+  eventDate               DateTime?
+  day                     Int?
+  month                   Int?
+  year                    Int?
+  taxonKey                BigInt?
+  speciesKey              BigInt?
+  basisOfRecord           String?
+  institutionCode         String?
+  collectionCode          String?
+  catalogNumber           String?
+  recordNumber            String?
+  identifiedBy            String?
+  dateIdentified          DateTime?
+  license                 String?
+  rightsHolder            String?
+  recordedBy              String?
+  typeStatus              String?
+  establishmentMeans      String?
+  lastInterpreted         DateTime?
+  mediaType               String?
+  issue                   String?   @db.Text
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+
+  @@index([scientificName])
+  @@index([genus, species])
+  @@index([family])
+  @@index([countryCode])
+  @@index([year])
+  @@index([decimalLatitude, decimalLongitude])
+}
